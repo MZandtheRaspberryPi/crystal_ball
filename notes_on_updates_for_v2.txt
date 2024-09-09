@@ -1,0 +1,14 @@
+Notes on Updates for V2
+3d design
+Mount the orb lower down on the cane, more stable, directly onto cane not onto ribbon. Perhaps 2/4 mounting points?
+multiple mounts for the bowl so it doesn't make noise/shift around. Consider inserting into the mount with a channel for bowl and mount points by 1mm for light?
+for the pcb, put hex mounts on the botton of base, screw down.
+
+hardware
+move to battery and 3.3v w/ adafruit feather. esp32.
+
+software
+button shouldn't refresh page or move away
+make button text less verbose
+make it easier to adjust colours
+add in more modes
