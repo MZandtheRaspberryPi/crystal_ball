@@ -21,25 +21,82 @@ display:block; margin: 0px auto; text-align: center;}}
 <h1>Crystal Ball Web Server</h1>
 <div class="paragraph">
  <p class="dotted">This is a webserver to control the lights in the crystal ball.</p>
-</div> 
-<div class="paragraph">
- <p class="dotted">The current mode is <span style="color: deeppink;">{LED_MODE}</span></p>
 </div>
-<h1>Lights Control</h1>
-<form accept-charset="utf-8" method="POST">
-<button class="button" name="Set Rainbow Mode" value="rainbow_mode" type="submit">Set Rainbow</button></a></p></form>
-<p><form accept-charset="utf-8" method="POST">
-<button class="button" name="Set Color Pulse Mode" value="color_pulse_mode" type="submit">Set Color Pulse</button></a></p></form>
-<p><form accept-charset="utf-8" method="POST">
-<button class="button" name="Increment Brightness" value="increment_brightness" type="submit">Increment Brightness ({BRIGHTNESS_LOWER_BOUND} to {BRIGHTNESS_UPPER_BOUND}, increment: {BRIGHTNESS_INCREMENT}, currently: {BRIGHTNESS})</button></a></p></form>
-<p><form accept-charset="utf-8" method="POST">
-<button class="button" name="Increment Rainbow Speed" value="increment_rainbow_speed" type="submit">Increment Rainbow Speed ({RAINBOW_MIN_SPEED} to {RAINBOW_MAX_SPEED}, increment: {RAINBOW_SPEED_INCREMENT}, currently: {RAINBOW_SPEED})</button></a></p></form>
-<p><form accept-charset="utf-8" method="POST">
-<button class="button" name="Color Pulse: Red" value="red" type="submit">Increment Color Pulse Red ({COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}, increment: {COLOR_INCREMENT}, currently: {COLOR_R})</button></a></p></form>
-<p><form accept-charset="utf-8" method="POST">
-<button class="button" name="Color Pulse: Green" value="green" type="submit">Increment Color Pulse Green ({COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}, increment: {COLOR_INCREMENT}, currently: {COLOR_G})</button></a></p></form>
-<p><form accept-charset="utf-8" method="POST">
-<button class="button" name="Color Pulse: Blue" value="blue" type="submit">Increment Color Pulse Blue ({COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}, increment: {COLOR_INCREMENT}, currently: {COLOR_B})</button></a></p></form>
-<p><form accept-charset="utf-8" method="POST">
-<button class="button" name="Reset Variables" value="reset_variables" type="submit">Reset All Variables to Defaults</button></a></p></form>
+<h1>Current Settings</h1>
+<div class="paragraph">
+ <p class="dotted">Mode: <span style="color: deeppink;">{LED_MODE}</span></p>
+</div>
+<div class="paragraph">
+ <p class="dotted">Battery: <span style="color: deeppink;">{BATTERY_LEVEL:.2f}</span></p>
+</div>
+<div class="paragraph">
+	<p class="dotted">Brightness: <span style="color: deeppink;">{BRIGHTNESS:.2f}</span></p>
+</div>
+<div class="paragraph">
+	<p class="dotted">Rainbow Speed: <span style="color: deeppink;">{RAINBOW_SPEED:.3f}</span></p>
+</div>
+<div class="paragraph">
+	<p class="dotted">Red value: <span style="color: deeppink;">{COLOR_R}</span></p>
+</div>
+<div class="paragraph">
+	<p class="dotted">Green value: <span style="color: deeppink;">{COLOR_G}</span></p>
+</div>
+<div class="paragraph">
+	<p class="dotted">Blue value: <span style="color: deeppink;">{COLOR_B}</span></p>
+</div>
+
+<h1>Controls</h1>
+<h2>General Controls</h2>
+<p>
+<form action="{SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{MODE_FORM_KEY}" value="{MODE_RAINBOW}" type="submit">Set Rainbow Mode</button>
+</form>
+</p>
+<p>
+<form action="{SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{MODE_FORM_KEY}" value="{MODE_COLOR_PULSE}" type="submit">Set Color Pulse Mode</button>
+</form>
+</p>
+<p>
+	<form action="{SETTINGS_URL}" method="post" enctype="text/plain">
+		<button class="button" name="{MODE_FORM_KEY}" value="{MODE_SLEEP}" type="submit">Set Deep Sleep</button>
+	</form>
+</p>
+<p>
+<form action="{SETTINGS_URL}" method="post" enctype="text/plain">
+	<input type="text" name="{BRIGHTNESS_FORM_KEY}" placeholder="Set brightness, {BRIGHTNESS_LOWER_BOUND} to {BRIGHTNESS_UPPER_BOUND}.">
+	<input type="submit" value="Submit">
+</form>
+</p>
+<p>
+<form action="{SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{RESET_VARS_FORM_KEY}" value="yes" type="submit">Reset Variables</button>
+</form>
+</p>
+<h2>Rainbow Controls</h2>
+<p>
+<form action="{RAINBOW_SETTINGS_URL}" method="post" enctype="text/plain">
+	<input type="text" name="{RAINBOW_SPEED_FORM_KEY}" placeholder="Set rainbow speed, {RAINBOW_MIN_SPEED} to {RAINBOW_MAX_SPEED}.">
+	<input type="submit" value="Submit">
+</form>
+</p>
+<h2>Color Pulse Controls</h3>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<input type="text" name="{COLOR_R_FORM_KEY}" placeholder="Set red value, {COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}.">
+	<input type="submit" value="Submit">
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<input type="text" name="{COLOR_G_FORM_KEY}" placeholder="Set green value, {COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}.">
+	<input type="submit" value="Submit">
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<input type="text" name="{COLOR_B_FORM_KEY}" placeholder="Set blue value, {COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}.">
+	<input type="submit" value="Submit">
+</form>
+</p>
 </body></html>
