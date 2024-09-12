@@ -4,16 +4,25 @@
 <meta http-equiv="Content-type" content="text/html;charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-html{{font-family: {FONT_FAMILY}; background-color: lightgrey;
+html{{font-family: monospace; background-color: lightgrey;
 display:block; margin: 0px auto; text-align: center;}}
-	h1{{color: deeppink; padding: 2vh; font-size: 35px;}}
+	h1{{color: deeppink; padding: 2vh; font-size: 2rem;}}
+	h2{{color: deeppink; padding: 2vh; font-size: 1.75rem;}}
 	p{{font-size: 1.5rem; display: block;}}
-	.button{{font-family: {FONT_FAMILY};display: inline-block;
+	.button{{font-family: monospace; display: inline-block;
 	background-color: black; border: none;
-	border-radius: 4px; color: white; padding: 16px 40px;
-	text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}}
+	border-radius: 4px; color: white; padding: 1rem 2.5rem;
+	text-decoration: none; font-size: 1.5rem; margin: 2px; cursor: pointer;}}
 	p.dotted {{margin: auto; display: block;
-	width: 75%; font-size: 25px; text-align: center;}}
+	 text-align: center;}}
+	.input{{font-family: monospace; display: inline-block;
+	background-color: black; border: none;
+	border-radius: 4px; color: white; padding: 1rem 2.5rem;
+	text-decoration: none; font-size: 1rem; margin: 2px; cursor: pointer;}}
+	.submit{{font-family: monospace; display: inline-block;
+	background-color: black; border: none;
+	border-radius: 4px; color: white; padding: 1rem 2.5rem;
+	text-decoration: none; font-size: 1rem; margin: 2px; cursor: pointer;}}
 </style>
 </head>
 <body>
@@ -42,7 +51,7 @@ display:block; margin: 0px auto; text-align: center;}}
 	<p class="dotted">Green value: <span style="color: deeppink;">{COLOR_G}</span></p>
 </div>
 <div class="paragraph">
-	<p class="dotted">Blue value: <span style="color: deeppink;">{COLOR_B}</span></p>
+	<p class="dotted">Blue value: <span style="color: #ff1493;">{COLOR_B}</span></p>
 </div>
 
 <h1>Controls</h1>
@@ -64,8 +73,8 @@ display:block; margin: 0px auto; text-align: center;}}
 </p>
 <p>
 <form action="{SETTINGS_URL}" method="post" enctype="text/plain">
-	<input type="text" name="{BRIGHTNESS_FORM_KEY}" placeholder="Set brightness, {BRIGHTNESS_LOWER_BOUND} to {BRIGHTNESS_UPPER_BOUND}.">
-	<input type="submit" value="Submit">
+	<input class="input" type="text" name="{BRIGHTNESS_FORM_KEY}" placeholder="Brightness: {BRIGHTNESS_LOWER_BOUND}-{BRIGHTNESS_UPPER_BOUND}">
+	<input class="submit" type="submit" value="Submit">
 </form>
 </p>
 <p>
@@ -76,27 +85,23 @@ display:block; margin: 0px auto; text-align: center;}}
 <h2>Rainbow Controls</h2>
 <p>
 <form action="{RAINBOW_SETTINGS_URL}" method="post" enctype="text/plain">
-	<input type="text" name="{RAINBOW_SPEED_FORM_KEY}" placeholder="Set rainbow speed, {RAINBOW_MIN_SPEED} to {RAINBOW_MAX_SPEED}.">
-	<input type="submit" value="Submit">
+	<input class="input" type="text" name="{RAINBOW_SPEED_FORM_KEY}" placeholder="Rainbow speed: {RAINBOW_MIN_SPEED}-{RAINBOW_MAX_SPEED}">
+	<input class="submit" type="submit" value="Submit">
 </form>
 </p>
 <h2>Color Pulse Controls</h3>
 <p>
 <form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
-	<input type="text" name="{COLOR_R_FORM_KEY}" placeholder="Set red value, {COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}.">
-	<input type="submit" value="Submit">
-</form>
-</p>
-<p>
-<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
-	<input type="text" name="{COLOR_G_FORM_KEY}" placeholder="Set green value, {COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}.">
-	<input type="submit" value="Submit">
-</form>
-</p>
-<p>
-<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
-	<input type="text" name="{COLOR_B_FORM_KEY}" placeholder="Set blue value, {COLOR_LOWER_BOUND} to {COLOR_UPPER_BOUND}.">
-	<input type="submit" value="Submit">
+	<p>
+		<input class="input" type="text" name="{COLOR_R_FORM_KEY}" placeholder="Red: {COLOR_LOWER_BOUND}-{COLOR_UPPER_BOUND}">
+	</p>
+	<p>
+		<input class="input" type="text" name="{COLOR_G_FORM_KEY}" placeholder="Green: {COLOR_LOWER_BOUND}-{COLOR_UPPER_BOUND}">
+	</p>
+	<p>
+		<input class="input" type="text" name="{COLOR_B_FORM_KEY}" placeholder="Blue: {COLOR_LOWER_BOUND}-{COLOR_UPPER_BOUND}">
+	</p>
+	<input class="submit" type="submit" value="Submit">
 </form>
 </p>
 </body></html>

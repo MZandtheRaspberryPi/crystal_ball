@@ -1,0 +1,38 @@
+import board
+import neopixel
+import os
+
+PIXEL_PIN = board.D5
+BUTTON_PIN = board.BUTTON
+INBUILT_NEOPIXEL_PIN = board.NEOPIXEL_I2C_POWER
+BATTERY_PIN = board.VOLTAGE_MONITOR
+
+ORDER = neopixel.RGB
+
+SSID_NAME = os.getenv("SSID_NAME")
+SSID_PASS = os.getenv("WLAN_PASS")
+NUM_PIXELS = 10
+MODE_FORM_KEY = "mode"
+MODE_RAINBOW = "rainbow_mode"
+MODE_SLEEP = "sleep"
+MODE_COLOR_PULSE = "color_pulse_mode"
+RESET_VARS_FORM_KEY = "reset_variables"
+SETTINGS_URL = "/settings"
+RAINBOW_SETTINGS_URL = "/settings/rainbow"
+COLOR_PULSE_SETTINGS_URL = "/settings/color_pulse"
+
+TARGET_LOOP_RATE = 60  # hz
+TARGET_LOOP_SECONDS = 1 / TARGET_LOOP_RATE
+
+BRIGHTNESS_LOWER_BOUND = 0.0
+BRIGHTNESS_UPPER_BOUND = 1.0
+BRIGHTNESS_FORM_KEY = "brightness"
+RAINBOW_MIN_SPEED = 0
+RAINBOW_MAX_SPEED = 0.1
+RAINBOW_SPEED_FORM_KEY = "rainbow_speed"
+
+COLOR_R_FORM_KEY = "r"
+COLOR_G_FORM_KEY = "g"
+COLOR_B_FORM_KEY = "b"
+COLOR_UPPER_BOUND = 255
+COLOR_LOWER_BOUND = 0
