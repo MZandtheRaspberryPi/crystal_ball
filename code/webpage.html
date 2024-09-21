@@ -32,6 +32,7 @@ display:block; margin: 0px auto; text-align: center;}}
  <p class="dotted">This is a webserver to control the lights in the crystal ball.</p>
 </div>
 <h1>Current Settings</h1>
+<h2>General Settings</h2>
 <div class="paragraph">
  <p class="dotted">Mode: <span style="color: deeppink;">{LED_MODE}</span></p>
 </div>
@@ -41,9 +42,11 @@ display:block; margin: 0px auto; text-align: center;}}
 <div class="paragraph">
 	<p class="dotted">Brightness: <span style="color: deeppink;">{BRIGHTNESS:.2f}</span></p>
 </div>
+<h2>Rainbow Settings</h2>
 <div class="paragraph">
 	<p class="dotted">Rainbow Speed: <span style="color: deeppink;">{RAINBOW_SPEED:.3f}</span></p>
 </div>
+<h2>Color Pulse Settings</h2>
 <div class="paragraph">
 	<p class="dotted">Red value: <span style="color: deeppink;">{COLOR_R}</span></p>
 </div>
@@ -53,8 +56,12 @@ display:block; margin: 0px auto; text-align: center;}}
 <div class="paragraph">
 	<p class="dotted">Blue value: <span style="color: #ff1493;">{COLOR_B}</span></p>
 </div>
-
-<h1>Controls</h1>
+<div class="paragraph"></div>
+	<p class="dotted">Color pulse interval: <span style="color: deeppink;">{COLOR_PULSE_INTERVAL}</span></p>
+</div>
+<div class="paragraph"></div>
+	<p class="dotted">Color pulse brightness percent: <span style="color: deeppink;">{COLOR_PULSE_BRIGHTNESS_PCT}</span></p>
+</div>
 <h2>General Controls</h2>
 <p>
 <form action="{SETTINGS_URL}" method="post" enctype="text/plain">
@@ -89,8 +96,49 @@ display:block; margin: 0px auto; text-align: center;}}
 	<input class="submit" type="submit" value="Submit">
 </form>
 </p>
-<h2>Color Pulse Controls</h3>
+<h2>Color Pulse Controls</h2>
 <p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{RED_COLOR_KEY}" value="yes" type="submit">Red</button>
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{ORANGE_COLOR_KEY}" value="yes" type="submit">Orange</button>
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{YELLOW_COLOR_KEY}" value="yes" type="submit">Yellow</button>
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{GREEN_COLOR_KEY}" value="yes" type="submit">Green</button>
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{BLUE_COLOR_KEY}" value="yes" type="submit">Blue</button>
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<button class="button" name="{PURPLE_COLOR_KEY}" value="yes" type="submit">Purple</button>
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<input class="input" type="text" name="{COLOR_PULSE_INTERVAL_KEY}" placeholder="({COLOR_PULSE_INTERVAL_MINIMUM}-{COLOR_PULSE_INTERVAL_MAXIMUM})">
+</form>
+</p>
+<p>
+<form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
+	<input class="input" type="text" name="{PULSE_BRIGHTNESS_PERCENT_KEY}" placeholder="({PULSE_BRIGHTNESS_PCT_MINIMUM}-{PULSE_BRIGHTNESS_PCT_MAXIMUM})">
+</form>
+</p>
+<p>
+<h3>RGB Controls</h3>
 <form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
 	<p>
 		<input class="input" type="text" name="{COLOR_R_FORM_KEY}" placeholder="Red: {COLOR_LOWER_BOUND}-{COLOR_UPPER_BOUND}">
