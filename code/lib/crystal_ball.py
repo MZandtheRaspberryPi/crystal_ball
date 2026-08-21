@@ -66,6 +66,8 @@ class CrystalBall:
         self.pool = pool
         
         self.led_mode = MODE_RAINBOW
+        self.rainbow_ctr = 0
+        self.rainbow_last_run_time = 0
         self.brightness = 0.5
         self.rainbow_speed = 0
         self.color_r = 255
@@ -110,8 +112,8 @@ class CrystalBall:
         print("starting server..")
         # startup the server
         try:
-            self.server.start(str(wifi.radio.ipv4_gateway_ap))
-            print("Listening on http://%s" % wifi.radio.ipv4_gateway_ap)
+            self.server.start(str(wifi.radio.ipv4_gateway_ap), port=5000)
+            print(f"Listening on http://{wifi.radio.ipv4_gateway_ap}:{self.server.port}")
             #  if the server fails to begin, restart the pico w
         except OSError:
             time.sleep(5)
@@ -145,7 +147,23 @@ class CrystalBall:
     
     def poll_server(self):
         #  poll the server for incoming/outgoing requests
-        self.server.poll()
+        try:
+            self.server.poll()
+        except ValueError as e: #
+            """
+if do https request
+Traceback (most recent call last):
+  File "<stdin>", line 31, in <module>
+  File "<stdin>", line 29, in main
+  File "/lib/crystal_ball.py", line 150, in poll_server
+  File "adafruit_httpserver/server.py", line 448, in poll
+  File "adafruit_httpserver/server.py", line 408, in poll
+  File "adafruit_httpserver/server.py", line 295, in _receive_request
+  File "adafruit_httpserver/request.py", line 351, in __init__
+ValueError: ('Unparseable raw_request: ', 
+            """
+            print("caught value error in server.poll")
+            return
     
     def get_webpage(self):
 
@@ -290,12 +308,12 @@ display:block; margin: 0px auto; text-align: center;}}
 </p>
 <p>
 <form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
-	<input class="input" type="text" name="{COLOR_PULSE_INTERVAL_KEY}" placeholder="({COLOR_PULSE_INTERVAL_MINIMUM}-{COLOR_PULSE_INTERVAL_MAXIMUM})">
+	<input class="input" type="text" name="{COLOR_PULSE_INTERVAL_KEY}" placeholder="Pulse Interval ({COLOR_PULSE_INTERVAL_MINIMUM}-{COLOR_PULSE_INTERVAL_MAXIMUM})">
 </form>
 </p>
 <p>
 <form action="{COLOR_PULSE_SETTINGS_URL}" method="post" enctype="text/plain">
-	<input class="input" type="text" name="{PULSE_BRIGHTNESS_PERCENT_KEY}" placeholder="({PULSE_BRIGHTNESS_PCT_MINIMUM}-{PULSE_BRIGHTNESS_PCT_MAXIMUM})">
+	<input class="input" type="text" name="{PULSE_BRIGHTNESS_PERCENT_KEY}" placeholder="Bright % ({PULSE_BRIGHTNESS_PCT_MINIMUM}-{PULSE_BRIGHTNESS_PCT_MAXIMUM})">
 </form>
 </p>
 <p>
@@ -340,6 +358,7 @@ display:block; margin: 0px auto; text-align: center;}}
             elif mode == MODE_SLEEP:
                 self.server.stop()
                 wifi.radio.stop_ap()
+                wifi.radio.stop_dhcp_ap()
                 self.pixels.fill((0, 0, 0))
                 self.pixels.show()
                 alarm.exit_and_deep_sleep_until_alarms(self.pin_alarm)
@@ -438,12 +457,18 @@ display:block; margin: 0px auto; text-align: center;}}
 
 
     def rainbow(self):
-        for j in range(255):
-            for i in range(NUM_PIXELS):
-                pixel_index = (i * 256 // NUM_PIXELS) + j
-                self.pixels[i] = colorwheel(pixel_index & 255)
-            self.pixels.show()
-            time.sleep(self.rainbow_speed)
+        if time.monotonic() - self.rainbow_last_run_time > self.rainbow_speed:
+            self.rainbow_last_run_time = time.monotonic()
+        else:
+            return
+        for i in range(NUM_PIXELS):
+            pixel_index = (i * 256 // NUM_PIXELS) + self.rainbow_ctr
+            self.pixels[i] = colorwheel(pixel_index & 255)
+        self.pixels.show()
+        self.rainbow_ctr += 1
+        if self.rainbow_ctr > 255:
+            self.rainbow_ctr = 0
+            
 
     def color_pulse(self):
         # we want to use the interval, within this many seconds, it should go from full brightness, to minimum brightness, to full brightness
@@ -462,3 +487,6 @@ display:block; margin: 0px auto; text-align: center;}}
         self.pixels.fill((self.color_r, self.color_g, self.color_b))
         self.pixels.brightness = self.color_pulse_adjusted_brightness
         self.pixels.show()
+
+
+
