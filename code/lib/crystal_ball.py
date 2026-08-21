@@ -465,7 +465,7 @@ display:block; margin: 0px auto; text-align: center;}}
             pixel_index = (i * 256 // NUM_PIXELS) + self.rainbow_ctr
             self.pixels[i] = colorwheel(pixel_index & 255)
         self.pixels.show()
-        self.rainbow_ctr += 1
+        self.rainbow_ctr += 8
         if self.rainbow_ctr > 255:
             self.rainbow_ctr = 0
             
